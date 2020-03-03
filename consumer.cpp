@@ -11,6 +11,8 @@
 
 using namespace std;
 
+int Consumer::s_product_quantity = 120;
+
 Consumer::Consumer(Store *s, int id):m_store(s),m_thread(),m_id(id),m_product(-1){}
 
 void Consumer::run()
@@ -22,7 +24,7 @@ void *Consumer::consumeProductsFromStore(void * this_pntr)
 {
     Consumer* _this = reinterpret_cast<Consumer*>(this_pntr);
 
-    for (int i = 0; i < PRODUCTS_NUM; ++i)
+    while(Consumer::s_product_quantity != 0)
     {
         _this->m_product = _this->m_store->consumeProduct();
     }
@@ -36,4 +38,13 @@ void *Consumer::join()
     pthread_join(m_thread, &x);
 
     return x;
+}
+
+bool Consumer::decreaseProductsNum()
+{
+    if(s_product_quantity <= 0)
+        return false;
+
+    --s_product_quantity;
+    return true;
 }

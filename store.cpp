@@ -7,6 +7,8 @@
 #include <unistd.h>
 #include <cstdio>
 #include "store.h"
+#include "producer.h"
+#include "consumer.h"
 
 using namespace std;
 
@@ -23,7 +25,7 @@ int Store::addProduct(int product)
     {
         sleep(0.5);
     }
-    m_products.push_back(product);
+    m_products.push_back(Producer::getNextProductAndIncerement());
     ++m_products_count;
     printf("produced product %d the count now is \%d\n",product, m_products_count);
     pthread_mutex_unlock(&m_producing_mutex);
@@ -39,6 +41,7 @@ int Store::consumeProduct()
         sleep(0.5);
     }
     int product = m_products[--m_products_count];
+    Consumer::decreaseProductsNum();
     m_products.pop_back();
     printf("consumed product %d the count now is \%d\n",product, m_products_count);
     pthread_mutex_unlock(&m_consuming_mutex);

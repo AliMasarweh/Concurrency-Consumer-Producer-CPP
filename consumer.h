@@ -15,6 +15,7 @@ public:
     Consumer(Store* s, int id);
     void run();
     void* join();
+    static bool decreaseProductsNum();
 
 private:
     static void* consumeProductsFromStore(void*);
@@ -23,6 +24,8 @@ private:
     pthread_t m_thread;
     int m_id;
     int m_product;
+    static int s_product_quantity;
+    const static int s_num_of_products = 120;
 };
 
 

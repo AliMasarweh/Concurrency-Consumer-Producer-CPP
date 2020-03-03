@@ -15,14 +15,19 @@ public:
     Producer(Store* s, int id);
     void run();
     void* join();
+    static int getNextProductAndIncerement();
+    static int getNextProduct();
 
 private:
     static void* addProductsToStore(void*);
+
 
     Store* m_store;
     pthread_t m_thread;
     int m_id;
     int m_product;
+    static int s_product_num;
+    const static int s_num_of_products = 120;
 };
 
 

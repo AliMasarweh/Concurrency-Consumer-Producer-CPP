@@ -11,6 +11,8 @@
 
 using namespace std;
 
+int Producer::s_product_num = 1;
+
 Producer::Producer(Store *s, int id):m_store(s),m_thread(),m_id(id),m_product(id*PRODUCTS_NUM){}
 
 void Producer::run()
@@ -22,8 +24,8 @@ void *Producer::addProductsToStore(void * this_pntr)
 {
     Producer* _this = reinterpret_cast<Producer*>(this_pntr);
     unsigned char maxProduct = _this->m_product + PRODUCTS_NUM;
-
-    for (int i = _this->m_product; i < maxProduct; ++i)
+    int i = -1;
+    while ((i = getNextProduct()) < s_num_of_products)
     {
         _this->m_store->addProduct(i);
     }
@@ -37,4 +39,14 @@ void* Producer::join()
     pthread_join(m_thread, &x);
 
     return x;
+}
+
+int Producer::getNextProduct()
+{
+    return s_product_num;
+}
+
+int Producer::getNextProductAndIncerement()
+{
+    return s_product_num++;
 }
