@@ -8,7 +8,7 @@
 
 #define PRODUCTS_NUM 40
 
-Consumer::Consumer(Store *s, unsigned char id):m_store(s),m_thread(),m_id(id),m_product(id*PRODUCTS_NUM){}
+Consumer::Consumer(Store *s, unsigned char id):m_store(s),m_thread(),m_id(id),m_product(-1){}
 
 void Consumer::run()
 {
@@ -18,11 +18,10 @@ void Consumer::run()
 void *Consumer::addProductsToStore(void * this_pntr)
 {
     Consumer* _this = reinterpret_cast<Consumer*>(this_pntr);
-    unsigned char maxProduct = _this->m_product + PRODUCTS_NUM;
 
-    for (int i = _this->m_product; i < maxProduct; ++i)
+    for (int i = 0; i < PRODUCTS_NUM; ++i)
     {
-        _this->m_store->consumeProduct(i);
+        _this->m_product = _this->m_store->consumeProduct();
     }
 
     return NULL;

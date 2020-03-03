@@ -13,7 +13,7 @@ class Store
 public:
     Store();
     unsigned char addProduct(unsigned char product);
-    unsigned char consumeProduct(unsigned char product);
+    unsigned char consumeProduct();
 
 private:
     unsigned char m_products[6];
