@@ -3,12 +3,15 @@
 //
 
 #include <pthread.h>
+#include <iostream>
 #include "producer.h"
 #include "store.h"
 
 #define PRODUCTS_NUM 40
 
-Producer::Producer(Store *s, unsigned char id):m_store(s),m_thread(),m_id(id),m_product(id*PRODUCTS_NUM){}
+using namespace std;
+
+Producer::Producer(Store *s, int id):m_store(s),m_thread(),m_id(id),m_product(id*PRODUCTS_NUM){}
 
 void Producer::run()
 {
@@ -17,7 +20,7 @@ void Producer::run()
 
 void *Producer::addProductsToStore(void * this_pntr)
 {
-    Producer* _this = reinterpret_cast<Producer *>(this_pntr);
+    Producer* _this = reinterpret_cast<Producer*>(this_pntr);
     unsigned char maxProduct = _this->m_product + PRODUCTS_NUM;
 
     for (int i = _this->m_product; i < maxProduct; ++i)

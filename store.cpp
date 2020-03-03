@@ -3,26 +3,45 @@
 //
 
 #include <pthread.h>
+#include <iostream>
+#include <unistd.h>
+#include <cstdio>
 #include "store.h"
 
-Store::Store() : m_products_count(0) {}
+using namespace std;
 
-unsigned char Store::addProduct(unsigned char product)
+Store::Store() : m_products_count(0)
+{
+    pthread_mutex_unlock(&m_producing_mutex);
+    pthread_mutex_unlock(&m_consuming_mutex);
+}
+
+int Store::addProduct(int product)
 {
     pthread_mutex_lock(&m_producing_mutex);
-    while(m_products_count < 6);
-    m_products[m_products_count++] = product;
-    pthread_mutex_lock(&m_producing_mutex);
+    while(m_products_count == 6)
+    {
+        sleep(0.5);
+    }
+    m_products.push_back(product);
+    ++m_products_count;
+    printf("produced product %d the count now is \%d\n",product, m_products_count);
+    pthread_mutex_unlock(&m_producing_mutex);
 
     return product;
 }
 
-unsigned char Store::consumeProduct()
+int Store::consumeProduct()
 {
     pthread_mutex_lock(&m_consuming_mutex);
-    while(m_products_count > 0);
-    unsigned char product = m_products[m_products_count--];
-    pthread_mutex_lock(&m_consuming_mutex);
+    while(m_products_count == 0)
+    {
+        sleep(0.5);
+    }
+    int product = m_products[--m_products_count];
+    m_products.pop_back();
+    printf("consumed product %d the count now is \%d\n",product, m_products_count);
+    pthread_mutex_unlock(&m_consuming_mutex);
 
     return product;
 }

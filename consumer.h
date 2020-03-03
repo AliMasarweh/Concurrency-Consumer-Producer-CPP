@@ -12,16 +12,16 @@ class Store;
 class Consumer
 {
 public:
-    Consumer(Store* s, unsigned char id);
+    Consumer(Store* s, int id);
     void run();
 
 private:
-    static void* addProductsToStore(void*);
+    static void* consumeProductsFromStore(void*);
 
     Store* m_store;
     pthread_t m_thread;
-    unsigned char m_id;
-    unsigned char m_product;
+    int m_id;
+    int m_product;
 };
 
 

@@ -7,17 +7,18 @@
 
 
 #include <sys/types.h>
+#include <vector>
 
 class Store
 {
 public:
     Store();
-    unsigned char addProduct(unsigned char product);
-    unsigned char consumeProduct();
+    int addProduct(int product);
+    int consumeProduct();
 
 private:
-    unsigned char m_products[6];
-    unsigned char m_products_count;
+    std::vector<int> m_products;
+    int m_products_count;
     pthread_mutex_t m_producing_mutex;
     pthread_mutex_t m_consuming_mutex;
 };

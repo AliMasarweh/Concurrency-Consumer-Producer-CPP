@@ -12,7 +12,7 @@ class Store;
 class Producer
 {
 public:
-    Producer(Store* s, unsigned char id);
+    Producer(Store* s, int id);
     void run();
 
 
@@ -21,8 +21,8 @@ private:
 
     Store* m_store;
     pthread_t m_thread;
-    unsigned char m_id;
-    unsigned char m_product;
+    int m_id;
+    int m_product;
 };
 
 

@@ -3,19 +3,22 @@
 //
 
 #include <pthread.h>
+#include <iostream>
 #include "store.h"
 #include "consumer.h"
 
-#define PRODUCTS_NUM 40
+#define PRODUCTS_NUM 30
 
-Consumer::Consumer(Store *s, unsigned char id):m_store(s),m_thread(),m_id(id),m_product(-1){}
+using namespace std;
+
+Consumer::Consumer(Store *s, int id):m_store(s),m_thread(),m_id(id),m_product(-1){}
 
 void Consumer::run()
 {
-    pthread_create(&m_thread, NULL, addProductsToStore, this);
+    pthread_create(&m_thread, NULL, consumeProductsFromStore, this);
 }
 
-void *Consumer::addProductsToStore(void * this_pntr)
+void *Consumer::consumeProductsFromStore(void * this_pntr)
 {
     Consumer* _this = reinterpret_cast<Consumer*>(this_pntr);
 
