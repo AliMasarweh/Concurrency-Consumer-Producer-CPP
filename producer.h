@@ -19,7 +19,7 @@ public:
 private:
     static void* addProductsToStore(void*);
 
-    Store* store;
+    Store* m_store;
     pthread_t m_thread;
     unsigned char m_id;
     unsigned char m_product;
