@@ -29,3 +29,11 @@ void *Consumer::consumeProductsFromStore(void * this_pntr)
 
     return NULL;
 }
+
+void *Consumer::join()
+{
+    void* x;
+    pthread_join(m_thread, &x);
+
+    return x;
+}

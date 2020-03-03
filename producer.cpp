@@ -30,3 +30,11 @@ void *Producer::addProductsToStore(void * this_pntr)
 
     return NULL;
 }
+
+void* Producer::join()
+{
+    void* x;
+    pthread_join(m_thread, &x);
+
+    return x;
+}

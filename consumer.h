@@ -14,6 +14,7 @@ class Consumer
 public:
     Consumer(Store* s, int id);
     void run();
+    void* join();
 
 private:
     static void* consumeProductsFromStore(void*);

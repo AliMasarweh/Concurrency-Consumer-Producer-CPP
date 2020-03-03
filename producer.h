@@ -14,7 +14,7 @@ class Producer
 public:
     Producer(Store* s, int id);
     void run();
-
+    void* join();
 
 private:
     static void* addProductsToStore(void*);
