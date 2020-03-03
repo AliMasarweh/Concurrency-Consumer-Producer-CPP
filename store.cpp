@@ -24,6 +24,11 @@ int Store::addProduct(int product)
     while(m_products_count == 6)
     {
         sleep(0.5);
+        if(Producer::getNextProduct() >= 120)
+        {
+            pthread_mutex_unlock(&m_producing_mutex);
+            return -1;
+        }
     }
     m_products.push_back(Producer::getNextProductAndIncerement());
     ++m_products_count;
@@ -39,6 +44,11 @@ int Store::consumeProduct()
     while(m_products_count == 0)
     {
         sleep(0.5);
+        if(Consumer::getProductQuantity() <= 0)
+        {
+            pthread_mutex_unlock(&m_consuming_mutex);
+            return -1;
+        }
     }
     int product = m_products[--m_products_count];
     Consumer::decreaseProductsNum();

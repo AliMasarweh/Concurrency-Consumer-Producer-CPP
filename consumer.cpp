@@ -24,7 +24,7 @@ void *Consumer::consumeProductsFromStore(void * this_pntr)
 {
     Consumer* _this = reinterpret_cast<Consumer*>(this_pntr);
 
-    while(Consumer::s_product_quantity != 0)
+    while(Consumer::s_product_quantity > 0)
     {
         _this->m_product = _this->m_store->consumeProduct();
     }
@@ -47,4 +47,9 @@ bool Consumer::decreaseProductsNum()
 
     --s_product_quantity;
     return true;
+}
+
+int Consumer::getProductQuantity()
+{
+    return s_product_quantity;
 }

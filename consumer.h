@@ -16,6 +16,7 @@ public:
     void run();
     void* join();
     static bool decreaseProductsNum();
+    static int getProductQuantity();
 
 private:
     static void* consumeProductsFromStore(void*);

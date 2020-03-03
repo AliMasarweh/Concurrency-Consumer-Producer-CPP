@@ -11,7 +11,7 @@
 
 using namespace std;
 
-int Producer::s_product_num = 1;
+int Producer::s_product_num = 0;
 
 Producer::Producer(Store *s, int id):m_store(s),m_thread(),m_id(id),m_product(id*PRODUCTS_NUM){}
 
