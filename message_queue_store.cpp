@@ -7,15 +7,15 @@
 #include "producer.h"
 #include "message_queue_store.h"
 #include "consumer.h"
-#include "../PlatformIndependentConcurrency/linux_message_queue.h"
+#include "../PlatformIndependentConcurrency/linux_concurrency_abstract_factory.h"
 
 #define PRODUCING_NAME "mq_producing"
 #define CONSUMING_NAME "mq_consuming"
 
 MQueueStore::MQueueStore() : m_products_count(0)
 {
-    m_producing_mq = new LinuxMessageQueue();
-    m_consuming_mq = new LinuxMessageQueue();
+    m_producing_mq = ConcurrencyAbstractFactory::getInstance()->createMessageQueue();
+    m_consuming_mq = ConcurrencyAbstractFactory::getInstance()->createMessageQueue();
 
     m_producing_mq->open(PRODUCING_NAME, O_RDWR|O_CREAT, PMODE,
                          6 , 20);

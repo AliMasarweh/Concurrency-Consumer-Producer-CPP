@@ -4,7 +4,7 @@
 #include <cstddef>
 #include "producer.h"
 #include "mutex_store.h"
-#include "../PlatformIndependentConcurrency/linux_thread.h"
+#include "../PlatformIndependentConcurrency/linux_concurrency_abstract_factory.h"
 
 #define PRODUCTS_NUM 40
 
@@ -13,7 +13,9 @@ using namespace std;
 int Producer::s_product_num = 0;
 int Producer::s_counter = 0;
 
-Producer::Producer(Store& s):StoreUser(s),m_thread(new LinuxThread()),m_id(++s_counter),m_product(m_id*PRODUCTS_NUM){ this->run(); }
+Producer::Producer(Store& s):StoreUser(s),
+m_thread(ConcurrencyAbstractFactory::getInstance()->createThread())
+,m_id(++s_counter),m_product(m_id*PRODUCTS_NUM){ this->run(); }
 
 void Producer::run()
 {

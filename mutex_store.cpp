@@ -9,12 +9,14 @@
 #include "mutex_store.h"
 #include "producer.h"
 #include "consumer.h"
-#include "../PlatformIndependentConcurrency/linux_mutex.h"
+#include "../PlatformIndependentConcurrency/linux_concurrency_abstract_factory.h"
 
 using namespace std;
 
-MutexStore::MutexStore() : m_products_count(0), m_consuming_mutex(new LinuxMutex()),
-m_producing_mutex(new LinuxMutex()), m_items_mutex(new LinuxMutex())
+MutexStore::MutexStore() : m_products_count(0),
+m_consuming_mutex(ConcurrencyAbstractFactory::getInstance()->createMutex()),
+m_producing_mutex(ConcurrencyAbstractFactory::getInstance()->createMutex()),
+m_items_mutex(ConcurrencyAbstractFactory::getInstance()->createMutex())
 {
     m_producing_mutex->unlock();
     m_consuming_mutex->unlock();

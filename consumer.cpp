@@ -6,6 +6,7 @@
 #include <iostream>
 #include "mutex_store.h"
 #include "consumer.h"
+#include "../PlatformIndependentConcurrency/linux_concurrency_abstract_factory.h"
 
 #define PRODUCTS_NUM 30
 
@@ -14,7 +15,9 @@ using namespace std;
 int Consumer::s_product_quantity = 120;
 int Consumer::s_counter = 0;
 
-Consumer::Consumer(Store& s):StoreUser(s),m_thread(new LinuxThread()),m_id(++s_counter),m_product(-1){ this->run(); }
+Consumer::Consumer(Store& s):StoreUser(s),
+m_thread(ConcurrencyAbstractFactory::getInstance()->createThread()),
+m_id(++s_counter),m_product(-1){ this->run(); }
 
 void Consumer::run()
 {
