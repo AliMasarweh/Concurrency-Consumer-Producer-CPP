@@ -25,6 +25,7 @@ private:
     int m_products_count;
     Mutex* m_producing_mutex;
     Mutex* m_consuming_mutex;
+    Mutex* m_items_mutex;
 };
 
 

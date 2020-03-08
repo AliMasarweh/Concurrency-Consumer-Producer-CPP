@@ -14,10 +14,11 @@
 using namespace std;
 
 MutexStore::MutexStore() : m_products_count(0), m_consuming_mutex(new LinuxMutex()),
-m_producing_mutex(new LinuxMutex())
+m_producing_mutex(new LinuxMutex()), m_items_mutex(new LinuxMutex())
 {
     m_producing_mutex->unlock();
     m_consuming_mutex->unlock();
+    m_items_mutex->unlock();
 }
 
 int MutexStore::addProduct(int product)
@@ -33,7 +34,9 @@ int MutexStore::addProduct(int product)
         }
     }
     m_products.push_back(Producer::getNextProductAndIncerement());
+    m_items_mutex->lock();
     ++m_products_count;
+    m_items_mutex->unlock();
     printf("produced product %d the count now is \%d\n",product, m_products_count);
     m_producing_mutex->unlock();
 
@@ -52,7 +55,10 @@ int MutexStore::consumeProduct()
             return -1;
         }
     }
-    int product = m_products[--m_products_count];
+    m_items_mutex->lock();
+    --m_products_count;
+    m_items_mutex->unlock();
+    int product = m_products[m_products_count];
     Consumer::decreaseProductsNum();
     m_products.pop_back();
     printf("consumed product %d the count now is \%d\n",product, m_products_count);
