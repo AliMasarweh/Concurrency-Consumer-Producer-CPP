@@ -6,13 +6,14 @@
 #define CONSUMER_PRODUCER_CONSUMER_H
 
 #include <sys/types.h>
+#include "store_user.h"
 
 class Store;
 
-class Consumer
+class Consumer: public StoreUser
 {
 public:
-    Consumer(Store* s);
+    Consumer(Store& s);
     static bool decreaseProductsNum();
     static int getProductQuantity();
     ~Consumer() { this->join(); }
@@ -22,7 +23,6 @@ private:
     void* join();
     void run();
 
-    Store* m_store;
     pthread_t m_thread;
     static int s_counter;
     int m_id;

@@ -14,7 +14,7 @@ using namespace std;
 int Consumer::s_product_quantity = 120;
 int Consumer::s_counter = 0;
 
-Consumer::Consumer(Store *s):m_store(s),m_thread(),m_id(++s_counter),m_product(-1){ this->run(); }
+Consumer::Consumer(Store& s):StoreUser(s),m_thread(),m_id(++s_counter),m_product(-1){ this->run(); }
 
 void Consumer::run()
 {
