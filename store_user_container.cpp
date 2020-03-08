@@ -16,7 +16,7 @@ void StoreUsers::run()
 
 }
 
-StoreUsers::StoreUsers(MutexStore &s, int producers_num, int consumers_num) :StoreUser(s)
+StoreUsers::StoreUsers(Store &s, int producers_num, int consumers_num) :StoreUser(s)
 {
     for(int i = 0; i < producers_num;++i)
     {

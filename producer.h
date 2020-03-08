@@ -23,12 +23,13 @@ private:
     void* join();
     void run();
 
-    pthread_t m_thread;
     static int s_counter;
-    int m_id;
-    int m_product;
     static int s_product_num;
     const static int s_num_of_products = 120;
+
+    pthread_t m_thread;
+    int m_id;
+    int m_product;
 };
 
 

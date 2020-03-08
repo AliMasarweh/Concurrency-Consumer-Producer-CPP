@@ -11,7 +11,7 @@
 #include "consumer.h"
 
 #define PRODUCING_NAME "mq_producing"
-#define COSUMING_NAME "mq_consuming"
+#define CONSUMING_NAME "mq_consuming"
 
 MQueueStore::MQueueStore() : m_products_count(0)
 {
@@ -22,7 +22,7 @@ MQueueStore::MQueueStore() : m_products_count(0)
 
     m_consuming_attr.mq_maxmsg = 6;
     m_consuming_attr.mq_msgsize = 20;
-    m_consuming_mq = mq_open(COSUMING_NAME,  O_RDWR|O_CREAT, PMODE, &m_consuming_attr);
+    m_consuming_mq = mq_open(CONSUMING_NAME,  O_RDWR|O_CREAT, PMODE, &m_consuming_attr);
 
     for (int i = 0; i < m_producing_attr.mq_maxmsg; ++i)
     {
@@ -85,8 +85,8 @@ int MQueueStore::consumeProduct()
 
 MQueueStore::~MQueueStore()
 {
+    mq_unlink(PRODUCING_NAME);
+    mq_unlink(CONSUMING_NAME);
     mq_close(m_producing_mq);
     mq_close(m_consuming_mq);
-    mq_unlink(PRODUCING_NAME);
-    mq_unlink(COSUMING_NAME);
 }
