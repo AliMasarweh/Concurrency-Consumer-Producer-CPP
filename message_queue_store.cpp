@@ -7,7 +7,7 @@
 #include "producer.h"
 #include "message_queue_store.h"
 #include "consumer.h"
-#include "PlatformIndependentConcurrency/linux_message_queue.h"
+#include "../PlatformIndependentConcurrency/linux_message_queue.h"
 
 #define PRODUCING_NAME "mq_producing"
 #define CONSUMING_NAME "mq_consuming"

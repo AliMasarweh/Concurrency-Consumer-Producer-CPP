@@ -5,7 +5,7 @@
 #ifndef CONSUMER_PRODUCER_MESSAGE_QUEUE_STORE_H
 #define CONSUMER_PRODUCER_MESSAGE_QUEUE_STORE_H
 
-#include "PlatformIndependentConcurrency/message_queue.h"
+#include "../PlatformIndependentConcurrency/message_queue.h"
 
 #define PMODE 0700
 

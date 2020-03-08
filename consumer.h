@@ -7,8 +7,8 @@
 
 #include <sys/types.h>
 #include "store_user.h"
-#include "PlatformIndependentConcurrency/thread.h"
-#include "PlatformIndependentConcurrency/linux_thread.h"
+#include "../PlatformIndependentConcurrency/thread.h"
+#include "../PlatformIndependentConcurrency/linux_thread.h"
 
 class Store;
 

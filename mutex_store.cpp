@@ -9,7 +9,7 @@
 #include "mutex_store.h"
 #include "producer.h"
 #include "consumer.h"
-#include "PlatformIndependentConcurrency/linux_mutex.h"
+#include "../PlatformIndependentConcurrency/linux_mutex.h"
 
 using namespace std;
 

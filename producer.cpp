@@ -4,7 +4,7 @@
 #include <cstddef>
 #include "producer.h"
 #include "mutex_store.h"
-#include "PlatformIndependentConcurrency/linux_thread.h"
+#include "../PlatformIndependentConcurrency/linux_thread.h"
 
 #define PRODUCTS_NUM 40
 

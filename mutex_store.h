@@ -10,7 +10,7 @@
 #include <vector>
 #include <mqueue.h>
 #include "store.h"
-#include "PlatformIndependentConcurrency/mutex.h"
+#include "../PlatformIndependentConcurrency/mutex.h"
 
 class MutexStore : public Store
 {

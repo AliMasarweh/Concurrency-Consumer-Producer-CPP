@@ -6,7 +6,7 @@
 #define CONSUMER_PRODUCER_PRODUCER_H
 
 #include "store_user.h"
-#include "PlatformIndependentConcurrency/thread.h"
+#include "../PlatformIndependentConcurrency/thread.h"
 
 class Store;
 
