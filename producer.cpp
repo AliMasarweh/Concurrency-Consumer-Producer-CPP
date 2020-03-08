@@ -14,7 +14,7 @@ using namespace std;
 int Producer::s_product_num = 0;
 int Producer::s_counter = 0;
 
-Producer::Producer(Store *s):m_store(s),m_thread(),m_id(++s_counter),m_product(m_id*PRODUCTS_NUM){}
+Producer::Producer(Store *s):m_store(s),m_thread(),m_id(++s_counter),m_product(m_id*PRODUCTS_NUM){ this->run(); }
 
 void Producer::run()
 {

@@ -16,6 +16,7 @@ Store::Store() : m_products_count(0)
 {
     pthread_mutex_unlock(&m_producing_mutex);
     pthread_mutex_unlock(&m_consuming_mutex);
+//    pthread_mutex_unlock(&m_items_mutex);
 }
 
 int Store::addProduct(int product)
@@ -31,7 +32,9 @@ int Store::addProduct(int product)
         }
     }
     m_products.push_back(Producer::getNextProductAndIncerement());
+//    pthread_mutex_lock(&m_items_mutex);
     ++m_products_count;
+//    pthread_mutex_unlock(&m_items_mutex);
     printf("produced product %d the count now is \%d\n",product, m_products_count);
     pthread_mutex_unlock(&m_producing_mutex);
 
@@ -50,7 +53,9 @@ int Store::consumeProduct()
             return -1;
         }
     }
+//    pthread_mutex_lock(&m_items_mutex);
     int product = m_products[--m_products_count];
+//    pthread_mutex_unlock(&m_items_mutex);
     Consumer::decreaseProductsNum();
     m_products.pop_back();
     printf("consumed product %d the count now is \%d\n",product, m_products_count);

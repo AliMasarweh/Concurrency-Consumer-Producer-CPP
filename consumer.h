@@ -13,7 +13,6 @@ class Consumer
 {
 public:
     Consumer(Store* s);
-    void run();
     static bool decreaseProductsNum();
     static int getProductQuantity();
     ~Consumer() { this->join(); }
@@ -21,6 +20,7 @@ public:
 private:
     static void* consumeProductsFromStore(void*);
     void* join();
+    void run();
 
     Store* m_store;
     pthread_t m_thread;

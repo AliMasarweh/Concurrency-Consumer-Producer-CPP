@@ -13,7 +13,6 @@ class Producer
 {
 public:
     Producer(Store* s);
-    void run();
     static int getNextProductAndIncerement();
     static int getNextProduct();
     ~Producer() { this->join(); }
@@ -21,6 +20,7 @@ public:
 private:
     static void* addProductsToStore(void*);
     void* join();
+    void run();
 
     Store* m_store;
     pthread_t m_thread;

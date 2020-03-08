@@ -21,6 +21,7 @@ private:
     int m_products_count;
     pthread_mutex_t m_producing_mutex;
     pthread_mutex_t m_consuming_mutex;
+//    pthread_mutex_t m_items_mutex;
 };
 
 
