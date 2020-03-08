@@ -12,18 +12,19 @@ class Store;
 class Producer
 {
 public:
-    Producer(Store* s, int id);
+    Producer(Store* s);
     void run();
-    void* join();
     static int getNextProductAndIncerement();
     static int getNextProduct();
+    ~Producer() { this->join(); }
 
 private:
     static void* addProductsToStore(void*);
-
+    void* join();
 
     Store* m_store;
     pthread_t m_thread;
+    static int s_counter;
     int m_id;
     int m_product;
     static int s_product_num;

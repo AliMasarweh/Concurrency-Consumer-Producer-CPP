@@ -12,17 +12,19 @@ class Store;
 class Consumer
 {
 public:
-    Consumer(Store* s, int id);
+    Consumer(Store* s);
     void run();
-    void* join();
     static bool decreaseProductsNum();
     static int getProductQuantity();
+    ~Consumer() { this->join(); }
 
 private:
     static void* consumeProductsFromStore(void*);
+    void* join();
 
     Store* m_store;
     pthread_t m_thread;
+    static int s_counter;
     int m_id;
     int m_product;
     static int s_product_quantity;
