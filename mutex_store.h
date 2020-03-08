@@ -10,6 +10,7 @@
 #include <vector>
 #include <mqueue.h>
 #include "store.h"
+#include "PlatformIndependentConcurrency/mutex.h"
 
 class MutexStore : public Store
 {
@@ -22,15 +23,8 @@ public:
 private:
     std::vector<int> m_products;
     int m_products_count;
-    pthread_mutex_t m_producing_mutex;
-    pthread_mutex_t m_consuming_mutex;
-
-//    pthread_mutex_t m_items_mutex;
-
-    /*mq_attr m_producing_attr;
-    mq_attr m_consuming_attr;
-    mqd_t m_producing_mq;
-    mqd_t m_consuming_mq;*/
+    Mutex* m_producing_mutex;
+    Mutex* m_consuming_mutex;
 };
 
 

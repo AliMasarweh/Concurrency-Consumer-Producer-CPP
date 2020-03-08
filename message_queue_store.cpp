@@ -1,13 +1,11 @@
 //
 // Created by ali-masa on 3/8/20.
 //
-
-#include "message_queue_store.h"
-#include <iostream>
 #include <unistd.h>
 #include <cstdio>
 #include <cstring>
 #include "producer.h"
+#include "message_queue_store.h"
 #include "consumer.h"
 
 #define PRODUCING_NAME "mq_producing"
@@ -15,7 +13,6 @@
 
 MQueueStore::MQueueStore() : m_products_count(0)
 {
-
     m_producing_attr.mq_maxmsg = 6;
     m_producing_attr.mq_msgsize = 20;
     m_producing_mq = mq_open(PRODUCING_NAME,  O_RDWR|O_CREAT, PMODE, &m_producing_attr);

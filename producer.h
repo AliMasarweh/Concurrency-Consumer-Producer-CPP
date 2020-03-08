@@ -5,8 +5,8 @@
 #ifndef CONSUMER_PRODUCER_PRODUCER_H
 #define CONSUMER_PRODUCER_PRODUCER_H
 
-#include <sys/types.h>
 #include "store_user.h"
+#include "PlatformIndependentConcurrency/thread.h"
 
 class Store;
 
@@ -16,7 +16,7 @@ public:
     Producer(Store& s);
     static int getNextProductAndIncerement();
     static int getNextProduct();
-    ~Producer() { this->join(); }
+    ~Producer();
 
 private:
     static void* addProductsToStore(void*);
@@ -27,7 +27,7 @@ private:
     static int s_product_num;
     const static int s_num_of_products = 120;
 
-    pthread_t m_thread;
+    Thread* m_thread;
     int m_id;
     int m_product;
 };

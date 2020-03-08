@@ -7,6 +7,8 @@
 
 #include <sys/types.h>
 #include "store_user.h"
+#include "PlatformIndependentConcurrency/thread.h"
+#include "PlatformIndependentConcurrency/linux_thread.h"
 
 class Store;
 
@@ -16,7 +18,7 @@ public:
     Consumer(Store& s);
     static bool decreaseProductsNum();
     static int getProductQuantity();
-    ~Consumer() { this->join(); }
+    ~Consumer();
 
 private:
     static void* consumeProductsFromStore(void*);
@@ -27,7 +29,7 @@ private:
     const static int s_num_of_products = 120;
     static int s_counter;
 
-    pthread_t m_thread;
+    Thread* m_thread;
     int m_id;
     int m_product;
 };

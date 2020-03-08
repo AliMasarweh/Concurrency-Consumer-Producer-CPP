@@ -1,11 +1,10 @@
 //
 // Created by ali-masa on 3/3/20.
 //
-
-#include <pthread.h>
-#include <iostream>
+#include <cstddef>
 #include "producer.h"
 #include "mutex_store.h"
+#include "PlatformIndependentConcurrency/linux_thread.h"
 
 #define PRODUCTS_NUM 40
 
@@ -14,11 +13,11 @@ using namespace std;
 int Producer::s_product_num = 0;
 int Producer::s_counter = 0;
 
-Producer::Producer(Store& s):StoreUser(s),m_thread(),m_id(++s_counter),m_product(m_id*PRODUCTS_NUM){ this->run(); }
+Producer::Producer(Store& s):StoreUser(s),m_thread(new LinuxThread()),m_id(++s_counter),m_product(m_id*PRODUCTS_NUM){ this->run(); }
 
 void Producer::run()
 {
-    pthread_create(&m_thread, NULL, addProductsToStore, this);
+    m_thread->run(addProductsToStore, this);
 }
 
 void *Producer::addProductsToStore(void * this_pntr)
@@ -36,10 +35,7 @@ void *Producer::addProductsToStore(void * this_pntr)
 
 void* Producer::join()
 {
-    void* x;
-    pthread_join(m_thread, &x);
-
-    return x;
+    return m_thread->join();
 }
 
 int Producer::getNextProduct()
@@ -50,4 +46,10 @@ int Producer::getNextProduct()
 int Producer::getNextProductAndIncerement()
 {
     return s_product_num++;
+}
+
+Producer::~Producer()
+{
+    this->join();
+    delete m_thread;
 }
