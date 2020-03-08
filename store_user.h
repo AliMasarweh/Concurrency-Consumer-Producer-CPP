@@ -5,7 +5,7 @@
 #ifndef CONSUMER_PRODUCER_STORE_USER_H
 #define CONSUMER_PRODUCER_STORE_USER_H
 
-#include "store.h"
+#include "mutex_store.h"
 
 class StoreUser
 {

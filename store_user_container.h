@@ -11,7 +11,7 @@
 class StoreUsers : public StoreUser
 {
 public:
-    StoreUsers(Store& s, int producers_num, int consumers_num);
+    StoreUsers(MutexStore& s, int producers_num, int consumers_num);
     ~StoreUsers();
 private:
     virtual void *join();

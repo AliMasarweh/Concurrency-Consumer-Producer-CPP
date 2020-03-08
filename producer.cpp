@@ -5,7 +5,7 @@
 #include <pthread.h>
 #include <iostream>
 #include "producer.h"
-#include "store.h"
+#include "mutex_store.h"
 
 #define PRODUCTS_NUM 40
 
