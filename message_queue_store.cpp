@@ -14,10 +14,13 @@
 
 MQueueStore::MQueueStore() : m_products_count(0)
 {
-    m_producing_mq = new LinuxMessageQueue(PRODUCING_NAME, O_RDWR|O_CREAT, PMODE,
-                                           6 , 20);
-    m_consuming_mq = new LinuxMessageQueue(CONSUMING_NAME,  O_RDWR|O_CREAT, PMODE,
-                                           6 , 20);
+    m_producing_mq = new LinuxMessageQueue();
+    m_consuming_mq = new LinuxMessageQueue();
+
+    m_producing_mq->open(PRODUCING_NAME, O_RDWR|O_CREAT, PMODE,
+                         6 , 20);
+    m_consuming_mq->open(CONSUMING_NAME,  O_RDWR|O_CREAT, PMODE,
+                         6 , 20);
 
     for (int i = 0; i < 6; ++i)
     {
