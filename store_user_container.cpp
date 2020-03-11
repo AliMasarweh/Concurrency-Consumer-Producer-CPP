@@ -6,15 +6,9 @@
 #include "producer.h"
 #include "consumer.h"
 
-void *StoreUsers::join()
-{
-    return 0;
-}
+void *StoreUsers::join() {}
 
-void StoreUsers::run()
-{
-
-}
+void StoreUsers::run() {}
 
 StoreUsers::StoreUsers(Store &s, int producers_num, int consumers_num) :StoreUser(s)
 {

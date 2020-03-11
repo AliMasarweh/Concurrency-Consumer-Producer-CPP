@@ -25,7 +25,6 @@ private:
     void run();
 
     static int s_product_quantity;
-    const static int s_num_of_products = 120;
     static int s_counter;
 
     Thread* m_thread;

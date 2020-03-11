@@ -8,8 +8,6 @@
 #include "consumer.h"
 #include "../PlatformIndependentConcurrency/linux_concurrency_abstract_factory.h"
 
-#define PRODUCTS_NUM 30
-
 using namespace std;
 
 int Consumer::s_product_quantity = 120;

@@ -35,7 +35,7 @@ int MutexStore::addProduct(int product)
             return -1;
         }
     }
-    m_products.push_back(Producer::getNextProductAndIncerement());
+    m_products.push_back(Producer::getNextProductAndIncrement());
     m_items_mutex->lock();
     ++m_products_count;
     m_items_mutex->unlock();

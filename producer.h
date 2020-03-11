@@ -14,7 +14,8 @@ class Producer: public StoreUser
 {
 public:
     Producer(Store& s);
-    static int getNextProductAndIncerement();
+    // Increment
+    static int getNextProductAndIncrement();
     static int getNextProduct();
     ~Producer();
 
@@ -25,11 +26,10 @@ private:
 
     static int s_counter;
     static int s_product_num;
-    const static int s_num_of_products = 120;
+    const static int s_num_of_products = 119;
 
     Thread* m_thread;
     int m_id;
-    int m_product;
 };
 
 

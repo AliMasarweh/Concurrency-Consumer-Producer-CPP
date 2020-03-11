@@ -45,7 +45,7 @@ int MQueueStore::addProduct(int product)
             return -1;
         }
     }
-    m_products.push_back(Producer::getNextProductAndIncerement());
+    m_products.push_back(Producer::getNextProductAndIncrement());
     ++m_products_count;
     printf("produced product %d the count now is \%d\n",product, m_products_count);
     m_producing_mq->send("Produce", strlen("Produce")+1, 0);

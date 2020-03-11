@@ -12,12 +12,11 @@ class StoreUser
 public:
     StoreUser(Store& store):m_store(&store) {}
     virtual ~StoreUser() {};
+    virtual void* join() = 0;
+    virtual void run() = 0;
 
 protected:
     Store* m_store;
-private:
-    virtual void* join() = 0;
-    virtual void run() = 0;
 };
 
 #endif //CONSUMER_PRODUCER_STORE_USER_H
