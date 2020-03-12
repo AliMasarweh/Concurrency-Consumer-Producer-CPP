@@ -24,7 +24,7 @@ void *Producer::addProductsToStore(void * this_pntr)
 {
     Producer* _this = reinterpret_cast<Producer*>(this_pntr);
     int i = -1;
-    while ((i = getNextProduct()) < s_num_of_products)
+    while (Producer::canProduceProducts())
     {
         _this->m_store->addProduct(i);
     }
@@ -44,11 +44,16 @@ int Producer::getNextProduct()
 
 int Producer::getNextProductAndIncrement()
 {
-    return s_product_num++;
+    return ++s_product_num;
 }
 
 Producer::~Producer()
 {
     this->join();
     delete m_thread;
+}
+
+bool Producer::canProduceProducts()
+{
+    return s_product_num < s_stock_of_products;
 }

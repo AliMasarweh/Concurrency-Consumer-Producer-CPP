@@ -16,7 +16,6 @@ class Consumer: public StoreUser
 public:
     Consumer(Store& s);
     static bool decreaseProductsNum();
-    static int getProductQuantity();
     ~Consumer();
 
 private:

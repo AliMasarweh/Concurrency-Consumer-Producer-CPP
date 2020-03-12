@@ -7,10 +7,11 @@
 #include "mutex_store.h"
 #include "consumer.h"
 #include "../PlatformIndependentConcurrency/linux_concurrency_abstract_factory.h"
+#include "producer.h"
 
 using namespace std;
 
-int Consumer::s_product_quantity = 120;
+int Consumer::s_product_quantity = 119;
 int Consumer::s_counter = 0;
 
 Consumer::Consumer(Store& s):StoreUser(s),
@@ -25,7 +26,7 @@ void Consumer::run()
 void *Consumer::consumeProductsFromStore(void * this_pntr)
 {
     Consumer* _this = reinterpret_cast<Consumer*>(this_pntr);
-    while(Consumer::s_product_quantity > 0)
+    while(Producer::canProduceProducts())
     {
         _this->m_product = _this->m_store->consumeProduct();
     }
@@ -47,11 +48,6 @@ bool Consumer::decreaseProductsNum()
 
     --s_product_quantity;
     return true;
-}
-
-int Consumer::getProductQuantity()
-{
-    return s_product_quantity;
 }
 
 Consumer::~Consumer()

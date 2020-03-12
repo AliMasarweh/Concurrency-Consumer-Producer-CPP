@@ -29,14 +29,14 @@ int MutexStore::addProduct(int product)
     while(m_products_count == 6)
     {
         sleep(0.5);
-        if(Producer::getNextProduct() >= 120)
+        if(!Producer::canProduceProducts())
         {
             m_producing_mutex->unlock();
             return -1;
         }
     }
-    m_products.push_back(Producer::getNextProductAndIncrement());
     m_items_mutex->lock();
+    m_products.push_back(Producer::getNextProductAndIncrement());
     ++m_products_count;
     m_items_mutex->unlock();
     printf("produced product %d the count now is \%d\n",product, m_products_count);
@@ -51,18 +51,17 @@ int MutexStore::consumeProduct()
     while(m_products_count == 0)
     {
         sleep(0.5);
-        if(Consumer::getProductQuantity() <= 0)
+        if(!Producer::canProduceProducts())
         {
             m_consuming_mutex->unlock();
             return -1;
         }
     }
     m_items_mutex->lock();
-    --m_products_count;
-    m_items_mutex->unlock();
-    int product = m_products[m_products_count];
+    int product = m_products[--m_products_count];
     Consumer::decreaseProductsNum();
     m_products.pop_back();
+    m_items_mutex->unlock();
     printf("consumed product %d the count now is \%d\n",product, m_products_count);
 
     m_consuming_mutex->unlock();
