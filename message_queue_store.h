@@ -23,6 +23,7 @@ private:
 
     MessageQueue* m_producing_mq;
     MessageQueue* m_consuming_mq;
+    MessageQueue* m_items_mq;
 };
 
 #endif //CONSUMER_PRODUCER_MESSAGE_QUEUE_STORE_H
